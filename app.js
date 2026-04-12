@@ -129,18 +129,58 @@ restartBtn.addEventListener('click', () => {
   }
 });
 
-// Share logic (using Web Share API if available)
+// 複製文字工具函式（相容所有瀏覽器）
+function copyText(text) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text);
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+  } catch(e) {}
+}
+
+// Share logic
 document.querySelectorAll('.share-label-pill').forEach(btn => {
   btn.addEventListener('click', () => {
-    const text = `【白沙屯媽祖啟駕】我的「人生願力」測驗結果是：${document.getElementById('result-title').textContent}！來測測你是哪一種？`;
-    if (navigator.share) {
-      navigator.share({
-        title: '人生願力測驗',
-        text: text,
-        url: window.location.href,
-      }).catch(console.error);
-    } else {
-      alert('已複製結果文字：\n\n' + text);
+    const resTitle = document.getElementById('result-title').textContent;
+    const shareText = `【白沙屯媽祖啟駕】我的「人生願力」測驗結果是：${resTitle}！來測測你是哪一種？`;
+    const shareUrl = window.location.href;
+    const fullText = shareText + ' ' + shareUrl;
+    const label = btn.textContent.trim();
+
+    if (label === '分享') {
+      if (navigator.share) {
+        navigator.share({ title: '人生願力測驗', text: fullText, url: shareUrl }).catch(() => {
+          copyText(fullText);
+          alert('測驗結果與連結已複製！');
+        });
+      } else {
+        copyText(fullText);
+        alert('測驗結果與連結已複製！');
+      }
+    } else if (label === 'FB') {
+      copyText(fullText);
+      alert('已為您複製結果！\n若 FB 沒出現文字，直接貼上即可！');
+      window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl), '_blank');
+    } else if (label === 'LINE') {
+      copyText(fullText);
+      alert('已為您複製結果！\n若 LINE 沒出現文字，直接貼上即可！');
+      window.open('https://social-plugins.line.me/lineit/share?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent(shareText), '_blank');
+    } else if (label === '脆') {
+      copyText(fullText);
+      alert('已為您複製結果！\n若 Threads 沒出現文字，直接貼上即可！');
+      window.open('https://www.threads.net/intent/post?text=' + encodeURIComponent(fullText), '_blank');
+    } else if (label === 'IG') {
+      copyText(fullText);
+      alert('已為您複製結果！\n請前往 IG 限動或貼文，直接貼上即可分享！');
     }
   });
 });
