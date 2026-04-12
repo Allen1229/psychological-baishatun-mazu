@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>白沙屯媽祖啟駕，測測你的「人生願力」是什麼？</title>
+  
+  <meta name="description" content="在人生的進香路上，面對未知的挑戰與善意，你會做出什麼選擇？">
+  <meta property="og:title" content="白沙屯媽祖啟駕，測測你的「人生願力」是什麼？">
+  <meta property="og:description" content="在人生的進香路上，面對未知的挑戰與善意，你會做出什麼選擇？">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 首頁 -->
+  <div id="home-page" class="page active">
+    <!-- 預設廣告 (選配，若不在此頁蓋板，可置放於末頁或彈出，依需求調整。這裡按規範加入) -->
+    
+    <div class="home-hero">
+      <div class="tag">白沙屯進香特輯</div>
+      <h1 class="main-title">測測你的「人生願力」</h1>
+      
+      <div class="hero-image-wrapper">
+         <img src="images/hero.png" alt="進香" class="hero-image" id="hero-img" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect width=\'400\' height=\'300\' fill=\'%23fceddb\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23b3815b\' font-size=\'20\'%3E[等待 AI 產圖...]%3C/text%3E%3C/svg%3E'">
+      </div>
+      
+      <p class="intro-description">在進香的旅途上，充滿了未知的挑戰與溫暖的善意。你的每一個決定，都映照著你靈魂深處最強大的力量。立刻出發尋找你專屬的願力！</p>
+      
+      <div class="home-actions mt-auto">
+        <button id="start-btn" class="primary-btn">
+           <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+           立刻出發
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 測驗頁 -->
+  <div id="quiz-page" class="page">
+    <div class="quiz-header">
+      <div class="progress-bar-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+      <div class="question-counter" id="question-counter"></div>
+    </div>
+    
+    <div class="quiz-content">
+      <h2 id="question-title" class="question-title"></h2>
+      <div id="options-container" class="options-wrapper">
+        <!-- JS 動態產生選項 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 分析中動畫頁 -->
+  <div id="loading-page" class="page">
+    <div class="loading-content">
+      <div class="flower-spinner">
+        <!-- Pure CSS SVG Spinner -->
+        <svg class="spinner" viewBox="0 0 50 50">
+          <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
+        </svg>
+      </div>
+      <h2 class="loading-title">擲筊請示中...</h2>
+      <p class="loading-desc">正在解析你的靈魂願力</p>
+    </div>
+  </div>
+
+  <!-- 結果頁 (嚴格遵守一屏幕、同寬底部分享等限制) -->
+  <div id="result-page" class="page">
+    <div class="result-header">
+      <div class="tag">專屬於你的人生願力是</div>
+      <h1 id="result-title" class="result-title"></h1>
+    </div>
+
+    <!-- 圖片作為視覺核心，設 fallback -->
+    <div class="result-image-wrapper">
+      <img id="result-image" src="" alt="Result" class="result-image" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 300\'%3E%3Crect width=\'400\' height=\'300\' fill=\'%23fceddb\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%23b3815b\' font-size=\'20\'%3E[等待 AI 產圖...]%3C/text%3E%3C/svg%3E'">
+      <!-- 說明文案框緊貼圖片 -->
+      <div class="result-desc-card">
+         <p id="result-desc" class="result-desc"></p>
+      </div>
+    </div>
+
+    <div class="result-actions">
+      <!-- 重新測驗按鈕 -->
+      <button id="restart-btn" class="secondary-btn">
+        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><polyline points="23 20 23 14 17 14"></polyline><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path></svg>
+        重新測驗
+      </button>
+
+      <!-- 嚴格要求：一鍵純文字分享列，等高等寬一行擠滿 -->
+      <div class="share-container">
+        <button class="share-label-pill">分享</button>
+        <button class="share-label-pill">FB</button>
+        <button class="share-label-pill">脆</button>
+        <button class="share-label-pill">LINE</button>
+        <button class="share-label-pill">IG</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 廣告蓋台 (Ad Modal) -->
+  <div id="ad-modal" class="ad-modal hidden">
+    <div class="ad-content">
+      <button id="ad-close-btn" class="ad-close-btn hidden">X</button>
+      <div id="ad-timer" class="ad-timer">5</div>
+      <img id="ad-icon" src="" alt="Game Icon" class="ad-icon" />
+      <h2 id="ad-title" class="ad-title">遊戲名稱</h2>
+      <p id="ad-desc" class="ad-desc">遊戲簡單文案...</p>
+      <button id="ad-action-btn" class="primary-btn ad-action-btn">快去玩玩</button>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
